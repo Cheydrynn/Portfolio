@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -428,6 +429,54 @@
     color: var(--ink-light);
   }
 
+  /* PDF VIEWER */
+  .pdf-viewer-wrap {
+    margin-top: 1.5rem;
+  }
+
+  .pdf-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    font-size: 13px;
+    color: var(--ink-mid);
+  }
+
+  .pdf-btn {
+    background: white;
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 4px 12px;
+    font-size: 13px;
+    font-family: inherit;
+    color: var(--ink);
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+
+  .pdf-btn:hover { background: var(--accent-green-bg); }
+  .pdf-btn:disabled { opacity: 0.35; cursor: default; background: white; }
+
+  .pdf-canvas-wrap {
+    border: 1px solid var(--rule);
+    background: #fff;
+    overflow-x: auto;
+  }
+
+  #pdf-canvas, #theory-pdf-canvas {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+  }
+
+  .pdf-loading {
+    font-size: 13px;
+    color: var(--ink-light);
+    font-style: italic;
+    padding: 2rem 0;
+  }
+
   /* ABOUT */
   .about-body {
     font-size: 15px;
@@ -544,35 +593,56 @@
 <!-- PUBLICATIONS -->
 <div id="page-publications" class="page">
   <div class="inner-page">
-    <h2 class="page-heading">Publications</h2>
-    <ul class="pub-list">
 
-      <li class="pub-item">
-        <div class="pub-title"><a href="#">Costume Design Literacy for Game Character Art Students: A Workshop-Based Investigation</a></div>
-        <div class="pub-meta">Master's thesis &middot; Breda University of Applied Sciences &middot; 2026</div>
-      </li>
+    <div id="pub-list-view">
+      <h2 class="page-heading">Publications</h2>
+      <ul class="pub-list">
 
-      <li class="pub-item">
-        <div class="pub-title">Designing speculative materials for game characters</div>
-        <div class="pub-meta">80.lv &middot; 2026 <span class="pub-status">Under submission</span></div>
-      </li>
+        <li class="pub-item">
+          <div class="pub-title"><a href="#" onclick="openPdf('pdfs/thesis.pdf', 'Costume Design Literacy for Game Character Art Students', 'pub')">Costume Design Literacy for Game Character Art Students: A Workshop-Based Investigation</a></div>
+          <div class="pub-meta">Master's thesis &middot; Breda University of Applied Sciences &middot; 2026</div>
+        </li>
 
-      <li class="pub-item">
-        <div class="pub-title">Physical property sliders explained</div>
-        <div class="pub-meta">ArtStation &middot; 2026</div>
-      </li>
+        <li class="pub-item">
+          <div class="pub-title">Designing speculative materials for game characters</div>
+          <div class="pub-meta">80.lv &middot; 2026 <span class="pub-status">Under submission</span></div>
+        </li>
 
-      <li class="pub-item">
-        <div class="pub-title">Extended abstract (title TBC)</div>
-        <div class="pub-meta">Press Start Journal &middot; 2026 <span class="pub-status">Under submission</span></div>
-      </li>
+        <li class="pub-item">
+          <div class="pub-title">Physical property sliders explained</div>
+          <div class="pub-meta">ArtStation &middot; 2026</div>
+        </li>
 
-      <li class="pub-item">
-        <div class="pub-title">Extended abstract (title TBC)</div>
-        <div class="pub-meta">LearnxDesign Conference &middot; 2026 <span class="pub-status">Under submission</span></div>
-      </li>
+        <li class="pub-item">
+          <div class="pub-title">Extended abstract (title TBC)</div>
+          <div class="pub-meta">Press Start Journal &middot; 2026 <span class="pub-status">Under submission</span></div>
+        </li>
 
-    </ul>
+        <li class="pub-item">
+          <div class="pub-title">Extended abstract (title TBC)</div>
+          <div class="pub-meta">LearnxDesign Conference &middot; 2026 <span class="pub-status">Under submission</span></div>
+        </li>
+
+      </ul>
+    </div>
+
+    <div id="pub-pdf-view" style="display:none;">
+      <button class="session-back" onclick="closePdf('pub')">&#8592; All publications</button>
+      <div class="session-detail-title" id="pub-pdf-title" style="margin-bottom:0.25rem;"></div>
+      <div style="font-size:13px; color:var(--ink-light); margin-bottom:1.5rem; padding-bottom:1.5rem; border-bottom:1px solid var(--rule);">Master's thesis &middot; Breda University of Applied Sciences &middot; 2026</div>
+      <div class="pdf-viewer-wrap">
+        <div class="pdf-controls">
+          <button class="pdf-btn" id="pub-prev" onclick="changePage('pub', -1)">&#8592; Prev</button>
+          <span id="pub-page-info">Page 1 of 1</span>
+          <button class="pdf-btn" id="pub-next" onclick="changePage('pub', 1)">Next &#8594;</button>
+        </div>
+        <div class="pdf-canvas-wrap">
+          <p class="pdf-loading" id="pub-loading">Loading PDF...</p>
+          <canvas id="pdf-canvas"></canvas>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -662,8 +732,17 @@
       <button class="session-back" onclick="backToGrid()">&#8592; All sessions</button>
       <div class="session-detail-title" id="detail-title"></div>
       <div class="session-detail-meta" id="detail-meta">Costume Design Guild &middot; 2025&ndash;2026</div>
-      <p class="slides-note">Slides will appear here once exported from PowerPoint. Drop images into the folder for this session and they will display in order.</p>
-      <div class="slides-grid" id="slides-grid"></div>
+      <div class="pdf-viewer-wrap">
+        <div class="pdf-controls">
+          <button class="pdf-btn" id="theory-prev" onclick="changePage('theory', -1)">&#8592; Prev</button>
+          <span id="theory-page-info">Page 1 of 1</span>
+          <button class="pdf-btn" id="theory-next" onclick="changePage('theory', 1)">Next &#8594;</button>
+        </div>
+        <div class="pdf-canvas-wrap">
+          <p class="pdf-loading" id="theory-loading">Select a session to load slides.</p>
+          <canvas id="theory-pdf-canvas"></canvas>
+        </div>
+      </div>
     </div>
 
   </div>
@@ -740,19 +819,97 @@
 </div>
 
 <script>
+  // PDF.js worker
+  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+  // PDF state — one for publications, one for theory
+  const pdfState = {
+    pub:    { doc: null, page: 1, total: 0, canvas: 'pdf-canvas',        info: 'pub-page-info',    loading: 'pub-loading',    prev: 'pub-prev',    next: 'pub-next'    },
+    theory: { doc: null, page: 1, total: 0, canvas: 'theory-pdf-canvas', info: 'theory-page-info', loading: 'theory-loading', prev: 'theory-prev', next: 'theory-next' },
+  };
+
+  async function openPdf(url, title, context) {
+    const state = pdfState[context];
+
+    if (context === 'pub') {
+      document.getElementById('pub-list-view').style.display = 'none';
+      document.getElementById('pub-pdf-view').style.display = 'block';
+      document.getElementById('pub-pdf-title').textContent = title;
+    }
+
+    document.getElementById(state.loading).style.display = 'block';
+    document.getElementById(state.canvas).style.display = 'none';
+    document.getElementById(state.prev).disabled = true;
+    document.getElementById(state.next).disabled = true;
+
+    try {
+      const pdf = await pdfjsLib.getDocument(url).promise;
+      state.doc = pdf;
+      state.total = pdf.numPages;
+      state.page = 1;
+      await renderPage(context);
+    } catch (e) {
+      document.getElementById(state.loading).textContent = 'Could not load PDF. Make sure the file has been uploaded to the repository.';
+    }
+
+    window.scrollTo(0, 0);
+  }
+
+  async function renderPage(context) {
+    const state = pdfState[context];
+    if (!state.doc) return;
+
+    const page = await state.doc.getPage(state.page);
+    const canvas = document.getElementById(state.canvas);
+    const ctx = canvas.getContext('2d');
+
+    const containerWidth = canvas.parentElement.clientWidth || 680;
+    const viewport = page.getViewport({ scale: 1 });
+    const scale = containerWidth / viewport.width;
+    const scaled = page.getViewport({ scale });
+
+    canvas.width = scaled.width;
+    canvas.height = scaled.height;
+
+    await page.render({ canvasContext: ctx, viewport: scaled }).promise;
+
+    document.getElementById(state.loading).style.display = 'none';
+    canvas.style.display = 'block';
+    document.getElementById(state.info).textContent = `Page ${state.page} of ${state.total}`;
+    document.getElementById(state.prev).disabled = state.page <= 1;
+    document.getElementById(state.next).disabled = state.page >= state.total;
+  }
+
+  async function changePage(context, delta) {
+    const state = pdfState[context];
+    const newPage = state.page + delta;
+    if (newPage < 1 || newPage > state.total) return;
+    state.page = newPage;
+    await renderPage(context);
+    window.scrollTo(0, 0);
+  }
+
+  function closePdf(context) {
+    if (context === 'pub') {
+      document.getElementById('pub-list-view').style.display = 'block';
+      document.getElementById('pub-pdf-view').style.display = 'none';
+    }
+  }
+
+  // Sessions data — add pdf path once files are uploaded
   const sessions = {
-    add1: { title: 'Creatures part 2' },
-    add2: { title: 'Patterns in game character clothing' },
-    add3: { title: 'Marvelous Designer slides' },
-    add4: { title: 'Speculative materials part 2' },
-    h1:   { title: 'Foundations' },
-    h2:   { title: 'Medieval and Renaissance' },
-    h3:   { title: 'Victorian and industrialisation' },
-    h4:   { title: 'Ancient to folk and cultures' },
-    h5:   { title: 'Modern to future' },
-    t1:   { title: 'Fashion concept to garment' },
-    t2:   { title: 'Textiles, materials and dyes' },
-    t3:   { title: 'Digital fashion' },
+    add1: { title: 'Creatures part 2',                    pdf: 'pdfs/add1.pdf' },
+    add2: { title: 'Patterns in game character clothing', pdf: 'pdfs/add2.pdf' },
+    add3: { title: 'Marvelous Designer slides',           pdf: 'pdfs/add3.pdf' },
+    add4: { title: 'Speculative materials part 2',        pdf: 'pdfs/add4.pdf' },
+    h1:   { title: 'Foundations',                         pdf: 'pdfs/h1.pdf'   },
+    h2:   { title: 'Medieval and Renaissance',            pdf: 'pdfs/h2.pdf'   },
+    h3:   { title: 'Victorian and industrialisation',     pdf: 'pdfs/h3.pdf'   },
+    h4:   { title: 'Ancient to folk and cultures',        pdf: 'pdfs/h4.pdf'   },
+    h5:   { title: 'Modern to future',                    pdf: 'pdfs/h5.pdf'   },
+    t1:   { title: 'Fashion concept to garment',          pdf: 'pdfs/t1.pdf'   },
+    t2:   { title: 'Textiles, materials and dyes',        pdf: 'pdfs/t2.pdf'   },
+    t3:   { title: 'Digital fashion',                     pdf: 'pdfs/t3.pdf'   },
   };
 
   const activities = {
@@ -794,7 +951,6 @@
     document.getElementById('activity-detail').style.display = 'none';
   }
 
-
   function showPage(id) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
@@ -808,18 +964,13 @@
     document.getElementById('detail-title').textContent = s.title;
     document.getElementById('theory-grid').style.display = 'none';
     document.getElementById('theory-detail').classList.add('active');
-
-    const grid = document.getElementById('slides-grid');
-    grid.innerHTML = '';
-    if (s.slides === 0) {
-      grid.innerHTML = '<p style="font-size:13px;color:var(--ink-light);font-style:italic;">No slides uploaded yet for this session.</p>';
-    }
-    window.scrollTo(0, 0);
+    openPdf(s.pdf, s.title, 'theory');
   }
 
   function backToGrid() {
     document.getElementById('theory-grid').style.display = 'block';
     document.getElementById('theory-detail').classList.remove('active');
+    pdfState.theory.doc = null;
   }
 </script>
 
