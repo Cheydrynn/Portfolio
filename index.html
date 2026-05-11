@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Imara van der Wel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #F7F4EF;
+    --ink: #1C1A17;
+    --ink-mid: #5C5850;
+    --ink-light: #9C9890;
+    --rule: #DDD9D2;
+    --accent-green: #2D5C3A;
+    --accent-green-bg: #EBF2ED;
+    --accent-purple: #3D2D6B;
+    --accent-purple-bg: #EDEAF5;
+    --accent-amber: #7A4A0A;
+    --accent-amber-bg: #F5EBD8;
+    --accent-teal: #1A5050;
+    --accent-teal-bg: #E0EEEE;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--cream);
+    border-bottom: 1px solid var(--rule);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+  }
+
+  .nav-name {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 15px;
+    letter-spacing: 0.01em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--ink-mid);
+    text-decoration: none;
+    letter-spacing: 0.03em;
+    transition: color 0.15s;
+  }
+
+  .nav-links a:hover,
+  .nav-links a.active {
+    color: var(--ink);
+  }
+
+  /* PAGES */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* HOME */
+  .home-header {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 4rem 2rem 3rem;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .home-header-tag {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    margin-bottom: 1rem;
+  }
+
+  .home-header h1 {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 36px;
+    font-weight: 400;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+
+  .home-header p {
+    font-size: 15px;
+    color: var(--ink-mid);
+    max-width: 500px;
+    line-height: 1.7;
+  }
+
+  /* FEED */
+  .feed-section {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 3rem 2rem 6rem;
+  }
+
+  .feed-label {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    margin-bottom: 2rem;
+  }
+
+  .feed-entry {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 0 2rem;
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .feed-entry:first-of-type { border-top: 1px solid var(--rule); }
+
+  .feed-date {
+    font-size: 12px;
+    color: var(--ink-light);
+    padding-top: 3px;
+    line-height: 1.4;
+  }
+
+  .feed-right {}
+
+  .feed-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .badge {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 3px 9px;
+    border-radius: 20px;
+  }
+
+  .badge-publication { background: var(--accent-green-bg); color: var(--accent-green); }
+  .badge-thesis      { background: var(--accent-purple-bg); color: var(--accent-purple); }
+  .badge-research    { background: var(--accent-amber-bg); color: var(--accent-amber); }
+  .badge-workshop    { background: var(--accent-teal-bg); color: var(--accent-teal); }
+
+  .feed-title {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 1.4;
+    margin-bottom: 0.6rem;
+    color: var(--ink);
+  }
+
+  .feed-title a {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 1px solid var(--rule);
+    transition: border-color 0.15s;
+  }
+
+  .feed-title a:hover { border-color: var(--ink); }
+
+  .feed-body {
+    font-size: 14px;
+    color: var(--ink-mid);
+    line-height: 1.75;
+  }
+
+  /* INNER PAGES */
+  .inner-page {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 3rem 2rem 6rem;
+  }
+
+  .page-heading {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 28px;
+    font-weight: 400;
+    margin-bottom: 2.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  /* PUBLICATIONS */
+  .pub-list { list-style: none; }
+
+  .pub-item {
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .pub-item:first-child { border-top: 1px solid var(--rule); }
+
+  .pub-title {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.4;
+    margin-bottom: 0.4rem;
+    color: var(--ink);
+  }
+
+  .pub-title a {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 1px solid var(--rule);
+    transition: border-color 0.15s;
+  }
+
+  .pub-title a:hover { border-color: var(--ink); }
+
+  .pub-meta {
+    font-size: 13px;
+    color: var(--ink-light);
+  }
+
+  .pub-status {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--accent-amber);
+    margin-left: 0.5rem;
+  }
+
+  /* THEORY */
+  .session-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1px;
+    border: 1px solid var(--rule);
+    margin-bottom: 3rem;
+  }
+
+  .session-card {
+    background: white;
+    padding: 1.5rem;
+    cursor: pointer;
+    transition: background 0.15s;
+    border: none;
+    text-align: left;
+    font-family: inherit;
+  }
+
+  .session-card:hover { background: var(--accent-green-bg); }
+
+  .row-label {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    margin-bottom: 1rem;
+  }
+
+  .session-num {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    margin-bottom: 0.75rem;
+  }
+
+  .session-title {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.4;
+    color: var(--ink);
+    margin-bottom: 0.4rem;
+  }
+
+  .session-sub {
+    font-size: 12px;
+    color: var(--ink-light);
+  }
+
+  .session-detail { display: none; }
+  .session-detail.active { display: block; }
+
+  .session-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 13px;
+    color: var(--ink-mid);
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-family: inherit;
+    padding: 0;
+    margin-bottom: 2rem;
+    transition: color 0.15s;
+  }
+
+  .session-back:hover { color: var(--ink); }
+
+  .session-detail-title {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 24px;
+    font-weight: 400;
+    margin-bottom: 0.5rem;
+  }
+
+  .session-detail-meta {
+    font-size: 13px;
+    color: var(--ink-light);
+    margin-bottom: 2.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .slides-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+
+  .slide-placeholder {
+    aspect-ratio: 16/9;
+    background: white;
+    border: 1px solid var(--rule);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: var(--ink-light);
+  }
+
+  .slide-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .slides-note {
+    font-size: 13px;
+    color: var(--ink-light);
+    margin-bottom: 1.5rem;
+    font-style: italic;
+  }
+
+  /* WORKSHOPS */
+  .workshop-item {
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .workshop-item:first-child { border-top: 1px solid var(--rule); }
+
+  .workshop-title {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 16px;
+    font-weight: 400;
+    margin-bottom: 0.3rem;
+  }
+
+  .workshop-when {
+    font-size: 12px;
+    color: var(--ink-light);
+    margin-bottom: 0.6rem;
+  }
+
+  .workshop-body {
+    font-size: 14px;
+    color: var(--ink-mid);
+    line-height: 1.75;
+  }
+
+  /* ACTIVITY BUTTONS */
+  .activity-buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1px;
+    border: 1px solid var(--rule);
+    margin-bottom: 2.5rem;
+  }
+
+  .activity-btn {
+    background: white;
+    padding: 1.5rem;
+    cursor: pointer;
+    transition: background 0.15s;
+    border: none;
+    text-align: left;
+    font-family: inherit;
+  }
+
+  .activity-btn:hover { background: var(--accent-teal-bg); }
+
+  .activity-btn-title {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 15px;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 0.4rem;
+    line-height: 1.4;
+  }
+
+  .activity-btn-sub {
+    font-size: 12px;
+    color: var(--ink-light);
+  }
+
+  /* ABOUT */
+  .about-body {
+    font-size: 15px;
+    color: var(--ink-mid);
+    line-height: 1.85;
+    max-width: 560px;
+  }
+
+  .about-body p + p { margin-top: 1.25rem; }
+
+  /* MOBILE */
+  @media (max-width: 600px) {
+    nav { padding: 0 1rem; }
+    .nav-links { gap: 1.25rem; }
+    .nav-links a { font-size: 12px; }
+    .home-header { padding: 2.5rem 1rem 2rem; }
+    .home-header h1 { font-size: 26px; }
+    .feed-section, .inner-page { padding: 2rem 1rem 4rem; }
+    .feed-entry { grid-template-columns: 1fr; gap: 0.5rem; }
+    .feed-date { padding-top: 0; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-name" href="#" onclick="showPage('home')">Imara van der Wel</a>
+  <ul class="nav-links">
+    <li><a href="#" onclick="showPage('home')" id="nav-home" class="active">Home</a></li>
+    <li><a href="#" onclick="showPage('publications')" id="nav-publications">Publications</a></li>
+    <li><a href="#" onclick="showPage('theory')" id="nav-theory">Theory</a></li>
+    <li><a href="#" onclick="showPage('workshops')" id="nav-workshops">Workshops</a></li>
+    <li><a href="#" onclick="showPage('about')" id="nav-about">About</a></li>
+  </ul>
+</nav>
+
+<!-- HOME -->
+<div id="page-home" class="page active">
+  <div class="home-header">
+    <div class="home-header-tag">Fashion design &rarr; Game character art research</div>
+    <h1>Imara van der Wel</h1>
+    <p>Researcher and educator working at the intersection of costume design and game character art. Based in the Netherlands.</p>
+  </div>
+
+  <div class="feed-section">
+    <div class="feed-label">Activity</div>
+
+    <div class="feed-entry">
+      <div class="feed-date">June 2026</div>
+      <div class="feed-right">
+        <div class="feed-meta"><span class="badge badge-publication">Publication</span></div>
+        <div class="feed-title">Designing speculative materials for game characters</div>
+        <div class="feed-body">My first article for 80.lv, built around the six-step material design framework that came out of the Guild sessions. It walks through how to approach material design for a character with no real-world reference point, using a cold-blooded reptilian researcher displaced into a cold wet climate as the working example. The framework covers everything from physical constraints to cultural logic to how the material actually behaves in simulation.</div>
+      </div>
+    </div>
+
+    <div class="feed-entry">
+      <div class="feed-date">June 2026</div>
+      <div class="feed-right">
+        <div class="feed-meta"><span class="badge badge-thesis">Thesis</span></div>
+        <div class="feed-title"><a href="#" onclick="showPage('publications')">Costume Design Literacy for Game Character Art Students: A Workshop-Based Investigation</a></div>
+        <div class="feed-body">The thesis is submitted. It investigates which costume design principles are relevant for game character art education, and how students engage with and apply those principles. The principles that mattered most were construction logic, material and historical context, fabric behaviour, and semiotic thinking. Students did not all translate those the same way. Riggers thought in deformation logic, concept artists in worldbuilding, character artists in construction and simulation workflows.</div>
+      </div>
+    </div>
+
+    <div class="feed-entry">
+      <div class="feed-date">April 2026</div>
+      <div class="feed-right">
+        <div class="feed-meta"><span class="badge badge-research">Research</span></div>
+        <div class="feed-title">Data collection finished</div>
+        <div class="feed-body">After five Guild sessions and a hands-on workshop, data collection wrapped up in April. The most interesting pattern that kept emerging was that students were not just absorbing costume knowledge. They were running it through their own pipeline role before doing anything with it. The same content landed completely differently depending on whether the student was a rigger, a concept artist, or a character artist. That pattern became one of the four main findings.</div>
+      </div>
+    </div>
+
+    <div class="feed-entry">
+      <div class="feed-date">March 2026</div>
+      <div class="feed-right">
+        <div class="feed-meta"><span class="badge badge-workshop">Workshop</span></div>
+        <div class="feed-title">Hands-on textile workshop</div>
+        <div class="feed-body">A three-hour in-person session at BUas with three activity stations running simultaneously: fabric exploration with thirty labelled samples and five mystery fabrics to identify, a draping and fold challenge with mannequins and mounted spheres, and a patterning station where students assembled flat pattern pieces into three-dimensional garments using tape. What stood out was how quickly physical contact with materials changed how students talked about fabric. Within the first twenty minutes people were using simulation slider terminology to describe what they were feeling in their hands.</div>
+      </div>
+    </div>
+
+    <div class="feed-entry">
+      <div class="feed-date">Feb 2026</div>
+      <div class="feed-right">
+        <div class="feed-meta"><span class="badge badge-research">Research</span></div>
+        <div class="feed-title">Main data collection begins</div>
+        <div class="feed-body">The real Guild series started in February, running five online sessions across historical costume periods: an introductory session establishing shared foundations, followed by four periods chosen for their relevance to game character design. Each session alternated between content delivery and structured discussion prompts, which turned out to be one of the things students responded to most. Sessions were recorded and transcribed through Teams, with the transcripts forming the core of the qualitative dataset.</div>
+      </div>
+    </div>
+
+    <div class="feed-entry">
+      <div class="feed-date">Nov 2025</div>
+      <div class="feed-right">
+        <div class="feed-meta"><span class="badge badge-research">Research</span></div>
+        <div class="feed-title">Test sessions begin</div>
+        <div class="feed-body">Before the real data collection, three test sessions were run to figure out what worked and what didn't. The first covered garment construction and patterning, the second textiles and natural dyeing, and the third digital fashion tools. The main thing those sessions showed was that students already had more intuition about fabric than they realised. They just didn't have the vocabulary to articulate it yet. That observation shaped how the real sessions were structured.</div>
+      </div>
+    </div>
+
+    <div class="feed-entry">
+      <div class="feed-date">Sep 2025</div>
+      <div class="feed-right">
+        <div class="feed-meta"><span class="badge badge-research">Research</span></div>
+        <div class="feed-title">Project begins: literature review</div>
+        <div class="feed-body">The starting point for this project was a gap that seemed obvious once you saw it: film and theatre both professionalized costume knowledge decades ago, and game art education had not. Studios were already hiring costume consultants and using pattern-based tools like Marvelous Designer, which meant they recognised the value, but there was no pedagogical framework for integrating that knowledge into game art training. The literature review built the foundation for what would become the research question.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- PUBLICATIONS -->
+<div id="page-publications" class="page">
+  <div class="inner-page">
+    <h2 class="page-heading">Publications</h2>
+    <ul class="pub-list">
+
+      <li class="pub-item">
+        <div class="pub-title"><a href="#">Costume Design Literacy for Game Character Art Students: A Workshop-Based Investigation</a></div>
+        <div class="pub-meta">Master's thesis &middot; Breda University of Applied Sciences &middot; 2026</div>
+      </li>
+
+      <li class="pub-item">
+        <div class="pub-title">Designing speculative materials for game characters</div>
+        <div class="pub-meta">80.lv &middot; 2026 <span class="pub-status">Under submission</span></div>
+      </li>
+
+      <li class="pub-item">
+        <div class="pub-title">Physical property sliders explained</div>
+        <div class="pub-meta">ArtStation &middot; 2026</div>
+      </li>
+
+      <li class="pub-item">
+        <div class="pub-title">Extended abstract (title TBC)</div>
+        <div class="pub-meta">Press Start Journal &middot; 2026 <span class="pub-status">Under submission</span></div>
+      </li>
+
+      <li class="pub-item">
+        <div class="pub-title">Extended abstract (title TBC)</div>
+        <div class="pub-meta">LearnxDesign Conference &middot; 2026 <span class="pub-status">Under submission</span></div>
+      </li>
+
+    </ul>
+  </div>
+</div>
+
+<!-- THEORY -->
+<div id="page-theory" class="page">
+  <div class="inner-page">
+    <h2 class="page-heading">Theory sessions</h2>
+
+    <div id="theory-grid">
+      <p style="font-size:14px; color: var(--ink-light); margin-bottom: 2.5rem;">Lecture sessions and presentation materials from the Costume Design Guild series and related research. Click any session to browse the slides.</p>
+
+      <div class="row-label">Additional theory</div>
+      <div class="session-grid" style="margin-bottom: 2.5rem;">
+        <button class="session-card" onclick="showSession('add1')">
+          <div class="session-num">Session 01</div>
+          <div class="session-title">Creatures part 2</div>
+          <div class="session-sub">Creature adapted clothing</div>
+        </button>
+        <button class="session-card" onclick="showSession('add2')">
+          <div class="session-num">Session 02</div>
+          <div class="session-title">Patterns in game character clothing</div>
+          <div class="session-sub">Analysis of patterning for game costumes</div>
+        </button>
+        <button class="session-card" onclick="showSession('add3')">
+          <div class="session-num">Session 03</div>
+          <div class="session-title">Marvelous Designer slides</div>
+          <div class="session-sub">Hands-on workshop: real-life fabric to digital sliders</div>
+        </button>
+        <button class="session-card" onclick="showSession('add4')">
+          <div class="session-num">Session 04</div>
+          <div class="session-title">Speculative materials part 2</div>
+          <div class="session-sub">Extending the framework beyond known references</div>
+        </button>
+      </div>
+
+      <div class="row-label">Historical theory</div>
+      <div class="session-grid" style="margin-bottom: 2.5rem;">
+        <button class="session-card" onclick="showSession('h1')">
+          <div class="session-num">Session 01</div>
+          <div class="session-title">Foundations</div>
+          <div class="session-sub">Introduction to fashion history and shared vocabulary</div>
+        </button>
+        <button class="session-card" onclick="showSession('h2')">
+          <div class="session-num">Session 02</div>
+          <div class="session-title">Medieval and Renaissance</div>
+          <div class="session-sub">Tunics, layered robes, structured doublets and fitted hose</div>
+        </button>
+        <button class="session-card" onclick="showSession('h3')">
+          <div class="session-num">Session 03</div>
+          <div class="session-title">Victorian and industrialisation</div>
+          <div class="session-sub">Corseted waists, bustles, tailored coats and structured volume</div>
+        </button>
+        <button class="session-card" onclick="showSession('h4')">
+          <div class="session-num">Session 04</div>
+          <div class="session-title">Ancient to folk and cultures</div>
+          <div class="session-sub">Regional textiles, embroidery, dress as cultural identity</div>
+        </button>
+        <button class="session-card" onclick="showSession('h5')">
+          <div class="session-num">Session 05</div>
+          <div class="session-title">Modern to future</div>
+          <div class="session-sub">Subculture silhouettes, synthetics and speculative futures</div>
+        </button>
+      </div>
+
+      <div class="row-label">Testrun series</div>
+      <div class="session-grid" style="margin-bottom: 2.5rem;">
+        <button class="session-card" onclick="showSession('t1')">
+          <div class="session-num">Session 01</div>
+          <div class="session-title">Fashion concept to garment</div>
+          <div class="session-sub">From patterns to garment</div>
+        </button>
+        <button class="session-card" onclick="showSession('t2')">
+          <div class="session-num">Session 02</div>
+          <div class="session-title">Textiles, materials and dyes</div>
+          <div class="session-sub">Fiber content, construction types, natural colouration</div>
+        </button>
+        <button class="session-card" onclick="showSession('t3')">
+          <div class="session-num">Session 03</div>
+          <div class="session-title">Digital fashion</div>
+          <div class="session-sub">Introduction, programs and Marvelous Designer</div>
+        </button>
+      </div>
+
+    </div>
+
+    <div id="theory-detail" class="session-detail">
+      <button class="session-back" onclick="backToGrid()">&#8592; All sessions</button>
+      <div class="session-detail-title" id="detail-title"></div>
+      <div class="session-detail-meta" id="detail-meta">Costume Design Guild &middot; 2025&ndash;2026</div>
+      <p class="slides-note">Slides will appear here once exported from PowerPoint. Drop images into the folder for this session and they will display in order.</p>
+      <div class="slides-grid" id="slides-grid"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- WORKSHOPS -->
+<div id="page-workshops" class="page">
+  <div class="inner-page">
+    <h2 class="page-heading">Workshops</h2>
+
+    <div id="workshop-main">
+
+      <p style="font-size:14px; color: var(--ink-light); margin-bottom: 2rem;">A hands-on workshop exploring costume design principles through physical material engagement, designed for game art students. Click an activity to read how it works.</p>
+
+      <div class="activity-buttons">
+        <button class="activity-btn" onclick="showActivity('fabric')">
+          <div class="activity-btn-title">Fabric exploration</div>
+          <div class="activity-btn-sub">Identifying textiles through touch and observation</div>
+        </button>
+        <button class="activity-btn" onclick="showActivity('draping')">
+          <div class="activity-btn-title">Draping and folds</div>
+          <div class="activity-btn-sub">Fabric behaviour on form and figure</div>
+        </button>
+        <button class="activity-btn" onclick="showActivity('pattern')">
+          <div class="activity-btn-title">Pattern understanding</div>
+          <div class="activity-btn-sub">From flat pattern pieces to three-dimensional garments</div>
+        </button>
+      </div>
+
+      <div class="feed-label" style="margin-top: 0.5rem; margin-bottom: 1.5rem;">Deliveries</div>
+
+      <div class="workshop-item">
+        <div class="workshop-title">Guest lecture at Saxion</div>
+        <div class="workshop-when">June 2026 &middot; Saxion University of Applied Sciences</div>
+        <div class="workshop-body">Hands-on textile workshop delivered in English, scaling the workshop methodology to a second Dutch game art programme and testing how the content transfers across different institutional contexts.</div>
+      </div>
+
+      <div class="workshop-item">
+        <div class="workshop-title">Guest lecture at HKU</div>
+        <div class="workshop-when">May 2026 &middot; HKU University of the Arts Utrecht</div>
+        <div class="workshop-body">Hands-on textile workshop delivered in Dutch as a guest lecture at HKU. The first external delivery of the workshop, scaling the format to a second Dutch game art programme.</div>
+      </div>
+
+      <div class="workshop-item">
+        <div class="workshop-title">Hands-on textile workshop</div>
+        <div class="workshop-when">March 2026 &middot; Breda University of Applied Sciences</div>
+        <div class="workshop-body">The original three-hour in-person session at BUas. Three activity stations running simultaneously, preceded by a theoretical introduction connecting physical fabric properties to the simulation sliders in Marvelous Designer and CLO3D. The workshop on which subsequent guest lectures were based.</div>
+      </div>
+
+    </div>
+
+    <div id="activity-detail" style="display:none;">
+      <button class="session-back" onclick="backToWorkshops()">&#8592; All activities</button>
+      <div class="session-detail-title" id="activity-title"></div>
+      <div class="session-detail-meta" id="activity-meta" style="font-size:13px; color: var(--ink-light); margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--rule);"></div>
+      <div id="activity-body" style="font-size:15px; color: var(--ink-mid); line-height:1.8;"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div id="page-about" class="page">
+  <div class="inner-page">
+    <h2 class="page-heading">About</h2>
+    <div class="about-body">
+      <p>My research sits at the intersection of costume design and game character art education, an overlap that doesn't get much attention, which is part of why it's interesting.</p>
+      <p>For my Master's thesis at Breda University of Applied Sciences, I investigated which costume design principles are relevant for game character art students and how they engage with that knowledge when they encounter it. I ran a series of online sessions on historical costume and material theory, followed by a hands-on textile workshop where students worked with fabric samples, mannequins and flat patterns. What came out of the data was not what I expected. Students didn't just absorb the material. They translated it through their own discipline, which generated new ideas and shifted how they thought about their existing work.</p>
+      <p>That research is now scaling. The workshop that started as a single session at BUas has since been delivered as a guest lecture at HKU and Saxion, and the underlying framework is finding its way into articles and presentations.</p>
+      <p>My background is in digital fashion design, with hands-on experience in CLO3D and Marvelous Designer, pattern cutting, and textile knowledge. I came to game art research through that technical foundation, and it shapes how I approach questions about construction, materiality, and what designers actually need to know.</p>
+      <p>Based in Dordrecht, the Netherlands.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  const sessions = {
+    add1: { title: 'Creatures part 2' },
+    add2: { title: 'Patterns in game character clothing' },
+    add3: { title: 'Marvelous Designer slides' },
+    add4: { title: 'Speculative materials part 2' },
+    h1:   { title: 'Foundations' },
+    h2:   { title: 'Medieval and Renaissance' },
+    h3:   { title: 'Victorian and industrialisation' },
+    h4:   { title: 'Ancient to folk and cultures' },
+    h5:   { title: 'Modern to future' },
+    t1:   { title: 'Fashion concept to garment' },
+    t2:   { title: 'Textiles, materials and dyes' },
+    t3:   { title: 'Digital fashion' },
+  };
+
+  const activities = {
+    fabric: {
+      title: 'Fabric exploration',
+      meta: 'Station 01 &middot; Hands-on textile workshop',
+      body: `<p>The fabric exploration station was set up with thirty fabric samples, each labelled with fiber content, construction type and coloration method. Alongside these sat five unlabelled white fabric samples identified only by burn test results, a magnifying glass, and a textile reference book.</p>
+<p style="margin-top:1.25rem;">Students explored the samples on the table, using the burn test results, the reference book, and comparison with the labelled samples to identify the mystery fabrics. The exercise asked them to observe properties like weave structure, surface texture, stretch and drape, properties that map directly onto the simulation sliders in Marvelous Designer and CLO3D.</p>
+<p style="margin-top:1.25rem;">A challenge exercise asked students to determine the simulation slider values of a chosen fabric based on its observed physical behaviour. The station consistently generated the most conversation, with students making spontaneous connections between what they were touching and how fabric behaves in digital tools.</p>`
+    },
+    draping: {
+      title: 'Draping and folds',
+      meta: 'Station 02 &middot; Hands-on textile workshop',
+      body: `<p>The draping station was set up with two mannequins, three mounted spheres, pins, and a variety of pre-cut fabrics in draping-appropriate sizes. Students draped fabric across the forms, experimenting with fold behaviour guided by challenge cards illustrating different fold types: pipe folds, drop folds, diaper folds, spiral folds, zigzag folds and half-lock folds.</p>
+<p style="margin-top:1.25rem;">The group assignment asked students to drape the same form in two different fabrics and record what influenced the difference, using simulation slider terminology where possible. The goal was to make the connection between physical fabric behaviour and the way cloth responds in simulation software. Understanding why a heavy woven fabric and a light jersey behave so differently on the same form.</p>
+<p style="margin-top:1.25rem;">The station was preceded by a theoretical introduction to fold types and what governs drape, covering warp, weft and bias as foundational concepts. Students who engaged with this station often began describing what they saw in terms of weight, bending resistance and shear before the session was over.</p>`
+    },
+    pattern: {
+      title: 'Pattern understanding',
+      meta: 'Station 03 &middot; Hands-on textile workshop',
+      body: `<p>The pattern understanding station was set up with pre-cut pattern pieces of basic block garments, tape, scissors, and additional paper and pencils for the challenge extension. Students assembled the flat pattern pieces into three-dimensional garments using tape, physically experiencing the flat-to-3D translation that underlies all garment construction.</p>
+<p style="margin-top:1.25rem;">This translation: the way a flat, two-dimensional piece of paper becomes a three-dimensional form that wraps a body, is one of the most relevant costume design principles for game character art. Understanding how patterns work informs how garments are sculpted, how fabric simulation is set up, and why certain silhouettes are structurally plausible while others are not.</p>
+<p style="margin-top:1.25rem;">A challenge extension invited students to slash and spread pattern pieces, experimenting with how editing a pattern changes garment volume and shape. This directly connects to how game artists might approach designing believable silhouettes: the same logic that governs how a pattern creates a flared skirt governs how an artist might want to set up a simulation or plan a sculpt.</p>`
+    }
+  };
+
+  function showActivity(id) {
+    const a = activities[id];
+    document.getElementById('activity-title').textContent = a.title;
+    document.getElementById('activity-meta').innerHTML = a.meta;
+    document.getElementById('activity-body').innerHTML = a.body;
+    document.getElementById('workshop-main').style.display = 'none';
+    document.getElementById('activity-detail').style.display = 'block';
+    window.scrollTo(0, 0);
+  }
+
+  function backToWorkshops() {
+    document.getElementById('workshop-main').style.display = 'block';
+    document.getElementById('activity-detail').style.display = 'none';
+  }
+
+
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+    document.getElementById('page-' + id).classList.add('active');
+    document.getElementById('nav-' + id).classList.add('active');
+    window.scrollTo(0, 0);
+  }
+
+  function showSession(id) {
+    const s = sessions[id];
+    document.getElementById('detail-title').textContent = s.title;
+    document.getElementById('theory-grid').style.display = 'none';
+    document.getElementById('theory-detail').classList.add('active');
+
+    const grid = document.getElementById('slides-grid');
+    grid.innerHTML = '';
+    if (s.slides === 0) {
+      grid.innerHTML = '<p style="font-size:13px;color:var(--ink-light);font-style:italic;">No slides uploaded yet for this session.</p>';
+    }
+    window.scrollTo(0, 0);
+  }
+
+  function backToGrid() {
+    document.getElementById('theory-grid').style.display = 'block';
+    document.getElementById('theory-detail').classList.remove('active');
+  }
+</script>
+
+</body>
+</html>
