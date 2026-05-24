@@ -503,13 +503,13 @@
 <body>
 
 <nav>
-  <a class="nav-name" href="#" onclick="showPage('home')">Imara van der Wel</a>
+  <a class="nav-name" href="javascript:void(0)" onclick="showPage('home')">Imara van der Wel</a>
   <ul class="nav-links">
-    <li><a href="#" onclick="showPage('home')" id="nav-home" class="active">Home</a></li>
-    <li><a href="#" onclick="showPage('publications')" id="nav-publications">Publications</a></li>
-    <li><a href="#" onclick="showPage('theory')" id="nav-theory">Theory</a></li>
-    <li><a href="#" onclick="showPage('workshops')" id="nav-workshops">Workshops</a></li>
-    <li><a href="#" onclick="showPage('about')" id="nav-about">About</a></li>
+    <li><a href="javascript:void(0)" onclick="showPage('home')" id="nav-home" class="active">Home</a></li>
+    <li><a href="javascript:void(0)" onclick="showPage('publications')" id="nav-publications">Publications</a></li>
+    <li><a href="javascript:void(0)" onclick="showPage('theory')" id="nav-theory">Theory</a></li>
+    <li><a href="javascript:void(0)" onclick="showPage('workshops')" id="nav-workshops">Workshops</a></li>
+    <li><a href="javascript:void(0)" onclick="showPage('about')" id="nav-about">About</a></li>
   </ul>
 </nav>
 
@@ -537,8 +537,17 @@
       <div class="feed-date">June 2026</div>
       <div class="feed-right">
         <div class="feed-meta"><span class="badge badge-thesis">Thesis</span></div>
-        <div class="feed-title"><a href="#" onclick="showPage('publications')">Costume Design Literacy for Game Character Art Students: A Workshop-Based Investigation</a></div>
+        <div class="feed-title"><a href="javascript:void(0)" onclick="showPage('publications')">Costume Design Literacy for Game Character Art Students: A Workshop-Based Investigation</a></div>
         <div class="feed-body">The thesis is submitted. It investigates which costume design principles are relevant for game character art education, and how students engage with and apply those principles. The principles that mattered most were construction logic, material and historical context, fabric behaviour, and semiotic thinking. Students did not all translate those the same way. Riggers thought in deformation logic, concept artists in worldbuilding, character artists in construction and simulation workflows.</div>
+      </div>
+    </div>
+
+    <div class="feed-entry">
+      <div class="feed-date">May 2026</div>
+      <div class="feed-right">
+        <div class="feed-meta"><span class="badge badge-workshop">Workshop</span></div>
+        <div class="feed-title">Guest lecture at HKU</div>
+        <div class="feed-body">The hands-on textile workshop was delivered for the first time outside BUas, as a guest lecture at HKU University of the Arts Utrecht. Taking the workshop to a second Dutch game art programme was a test of whether the format and content held up in a different institutional context. It did. This was the first step in scaling the research beyond its original setting.</div>
       </div>
     </div>
 
@@ -599,7 +608,7 @@
       <ul class="pub-list">
 
         <li class="pub-item">
-          <div class="pub-title"><a href="#" onclick="openPdf('pdfs/thesis.pdf', 'Costume Design Literacy for Game Character Art Students', 'pub')">Costume Design Literacy for Game Character Art Students: A Workshop-Based Investigation</a></div>
+          <div class="pub-title"><a href="javascript:void(0)" onclick="openPubPdf('pdfs/thesis.pdf', 'Costume Design Literacy for Game Character Art Students: A Workshop-Based Investigation', 'Master\'s thesis &middot; Breda University of Applied Sciences &middot; 2026')">Costume Design Literacy for Game Character Art Students: A Workshop-Based Investigation</a></div>
           <div class="pub-meta">Master's thesis &middot; Breda University of Applied Sciences &middot; 2026</div>
         </li>
 
@@ -609,18 +618,13 @@
         </li>
 
         <li class="pub-item">
-          <div class="pub-title">Physical property sliders explained</div>
-          <div class="pub-meta">ArtStation &middot; 2026</div>
+          <div class="pub-title"><a href="javascript:void(0)" onclick="openPubPdf('pdfs/sliders.pdf', 'Fabric physical properties explained', 'ArtStation &middot; 2026')">Fabric physical properties explained</a></div>
+          <div class="pub-meta">ArtStation &middot; 2026 &middot; <a href="https://www.artstation.com/blogs/imaravanderwel/9A7eD/fabric-physical-properties-explained" target="_blank" style="color:var(--ink-mid); font-size:13px;">Click here to read the blog</a></div>
         </li>
 
         <li class="pub-item">
-          <div class="pub-title">Extended abstract (title TBC)</div>
-          <div class="pub-meta">Press Start Journal &middot; 2026 <span class="pub-status">Under submission</span></div>
-        </li>
-
-        <li class="pub-item">
-          <div class="pub-title">Extended abstract (title TBC)</div>
-          <div class="pub-meta">LearnxDesign Conference &middot; 2026 <span class="pub-status">Under submission</span></div>
+          <div class="pub-title"><a href="javascript:void(0)" onclick="openPubPdf('pdfs/dyes.pdf', 'Your colour palette is worldbuilding', 'ArtStation &middot; 2026')">Your colour palette is worldbuilding</a></div>
+          <div class="pub-meta">ArtStation &middot; 2026 &middot; <a href="https://www.artstation.com/blogs/imaravanderwel/KGMLe/worldbuilding-through-colour-palette" target="_blank" style="color:var(--ink-mid); font-size:13px;">Click here to read the blog</a></div>
         </li>
 
       </ul>
@@ -629,7 +633,7 @@
     <div id="pub-pdf-view" style="display:none;">
       <button class="session-back" onclick="closePdf('pub')">&#8592; All publications</button>
       <div class="session-detail-title" id="pub-pdf-title" style="margin-bottom:0.25rem;"></div>
-      <div style="font-size:13px; color:var(--ink-light); margin-bottom:1.5rem; padding-bottom:1.5rem; border-bottom:1px solid var(--rule);">Master's thesis &middot; Breda University of Applied Sciences &middot; 2026</div>
+      <div id="pub-pdf-meta" style="font-size:13px; color:var(--ink-light); margin-bottom:1.5rem; padding-bottom:1.5rem; border-bottom:1px solid var(--rule);"></div>
       <div class="pdf-viewer-wrap">
         <div class="pdf-controls">
           <button class="pdf-btn" id="pub-prev" onclick="changePage('pub', -1)">&#8592; Prev</button>
@@ -775,6 +779,12 @@
       <div class="feed-label" style="margin-top: 0.5rem; margin-bottom: 1.5rem;">Deliveries</div>
 
       <div class="workshop-item">
+        <div class="workshop-title">Guest lectures at Saxion and Hanze</div>
+        <div class="workshop-when">September/October 2026 &middot; Saxion University of Applied Sciences, Enschede &middot; Hanze University of Applied Sciences, Groningen</div>
+        <div class="workshop-body">Hands-on textile workshop planned for delivery at two more Dutch game art programmes in autumn 2026, continuing the scaling of the workshop beyond its original BUas context.</div>
+      </div>
+
+      <div class="workshop-item">
         <div class="workshop-title">Guest lecture at HKU</div>
         <div class="workshop-when">May 2026 &middot; HKU University of the Arts Utrecht</div>
         <div class="workshop-body">Hands-on textile workshop delivered in Dutch as a guest lecture at HKU. The first external delivery of the workshop, scaling the format to a second Dutch game art programme.</div>
@@ -803,12 +813,15 @@
   <div class="inner-page">
     <h2 class="page-heading">About</h2>
     <div class="about-body">
+      <img src="images/Imara.jpg" alt="Imara van der Wel" style="float:right; width:200px; margin: 0 0 1.5rem 2rem; border:1px solid var(--rule);">
+      <p style="margin-bottom:1.5rem;"><a href="https://www.linkedin.com/in/imara-van-der-wel/" target="_blank" style="color:var(--ink); border-bottom:1px solid var(--rule); text-decoration:none; font-size:14px;">LinkedIn profile</a></p>
       <p>My research sits at the intersection of costume design and game character art education, an overlap that doesn't get much attention, which is part of why it's interesting.</p>
       <p>For my Master's thesis at Breda University of Applied Sciences, I investigated which costume design principles are relevant for game character art students and how they engage with that knowledge when they encounter it. I ran a series of online sessions on historical costume and material theory, followed by a hands-on textile workshop where students worked with fabric samples, mannequins and flat patterns. What came out of the data was not what I expected. Students didn't just absorb the material. They translated it through their own discipline, which generated new ideas and shifted how they thought about their existing work.</p>
       <p>That research is now scaling. The workshop that started as a single session at BUas has since been delivered as a guest lecture at HKU and Saxion, and the underlying framework is finding its way into articles and presentations.</p>
       <p>My background is in digital fashion design, with hands-on experience in CLO3D and Marvelous Designer, pattern cutting, and textile knowledge. I came to game art research through that technical foundation, and it shapes how I approach questions about construction, materiality, and what designers actually need to know.</p>
       <p>Based in Dordrecht, the Netherlands.</p>
     </div>
+    <div style="clear:both;"></div>
   </div>
 </div>
 
@@ -822,14 +835,16 @@
     theory: { doc: null, page: 1, total: 0, canvas: 'theory-pdf-canvas', info: 'theory-page-info', loading: 'theory-loading', prev: 'theory-prev', next: 'theory-next' },
   };
 
+  async function openPubPdf(url, title, meta) {
+    document.getElementById('pub-list-view').style.display = 'none';
+    document.getElementById('pub-pdf-view').style.display = 'block';
+    document.getElementById('pub-pdf-title').textContent = title;
+    document.getElementById('pub-pdf-meta').innerHTML = meta;
+    await openPdf(url, title, 'pub');
+  }
+
   async function openPdf(url, title, context) {
     const state = pdfState[context];
-
-    if (context === 'pub') {
-      document.getElementById('pub-list-view').style.display = 'none';
-      document.getElementById('pub-pdf-view').style.display = 'block';
-      document.getElementById('pub-pdf-title').textContent = title;
-    }
 
     document.getElementById(state.loading).style.display = 'block';
     document.getElementById(state.canvas).style.display = 'none';
@@ -910,21 +925,21 @@
     fabric: {
       title: 'Fabric exploration',
       meta: 'Station 01 &middot; Hands-on textile workshop',
-      body: `<p>The fabric exploration station was set up with thirty fabric samples, each labelled with fiber content, construction type and coloration method. Alongside these sat five unlabelled white fabric samples identified only by burn test results, a magnifying glass, and a textile reference book.</p>
+      body: `<img src="images/fabrics.jpg" alt="Fabric exploration station" style="width:100%; border:1px solid var(--rule); margin-bottom:1.5rem;"><p>The fabric exploration station was set up with thirty fabric samples, each labelled with fiber content, construction type and coloration method. Alongside these sat five unlabelled white fabric samples identified only by burn test results, a magnifying glass, and a textile reference book.</p>
 <p style="margin-top:1.25rem;">Students explored the samples on the table, using the burn test results, the reference book, and comparison with the labelled samples to identify the mystery fabrics. The exercise asked them to observe properties like weave structure, surface texture, stretch and drape, properties that map directly onto the simulation sliders in Marvelous Designer and CLO3D.</p>
 <p style="margin-top:1.25rem;">A challenge exercise asked students to determine the simulation slider values of a chosen fabric based on its observed physical behaviour. The station consistently generated the most conversation, with students making spontaneous connections between what they were touching and how fabric behaves in digital tools.</p>`
     },
     draping: {
       title: 'Draping and folds',
       meta: 'Station 02 &middot; Hands-on textile workshop',
-      body: `<p>The draping station was set up with two mannequins, three mounted spheres, pins, and a variety of pre-cut fabrics in draping-appropriate sizes. Students draped fabric across the forms, experimenting with fold behaviour guided by challenge cards illustrating different fold types: pipe folds, drop folds, diaper folds, spiral folds, zigzag folds and half-lock folds.</p>
+      body: `<img src="images/draping.jpg" alt="Draping and folds station" style="width:100%; border:1px solid var(--rule); margin-bottom:1.5rem;"><p>The draping station was set up with two mannequins, three mounted spheres, pins, and a variety of pre-cut fabrics in draping-appropriate sizes. Students draped fabric across the forms, experimenting with fold behaviour guided by challenge cards illustrating different fold types: pipe folds, drop folds, diaper folds, spiral folds, zigzag folds and half-lock folds.</p>
 <p style="margin-top:1.25rem;">The group assignment asked students to drape the same form in two different fabrics and record what influenced the difference, using simulation slider terminology where possible. The goal was to make the connection between physical fabric behaviour and the way cloth responds in simulation software. Understanding why a heavy woven fabric and a light jersey behave so differently on the same form.</p>
 <p style="margin-top:1.25rem;">The station was preceded by a theoretical introduction to fold types and what governs drape, covering warp, weft and bias as foundational concepts. Students who engaged with this station often began describing what they saw in terms of weight, bending resistance and shear before the session was over.</p>`
     },
     pattern: {
       title: 'Pattern understanding',
       meta: 'Station 03 &middot; Hands-on textile workshop',
-      body: `<p>The pattern understanding station was set up with pre-cut pattern pieces of basic block garments, tape, scissors, and additional paper and pencils for the challenge extension. Students assembled the flat pattern pieces into three-dimensional garments using tape, physically experiencing the flat-to-3D translation that underlies all garment construction.</p>
+      body: `<img src="images/patterning.jpg" alt="Pattern understanding station" style="width:100%; border:1px solid var(--rule); margin-bottom:1.5rem;"><p>The pattern understanding station was set up with pre-cut pattern pieces of basic block garments, tape, scissors, and additional paper and pencils for the challenge extension. Students assembled the flat pattern pieces into three-dimensional garments using tape, physically experiencing the flat-to-3D translation that underlies all garment construction.</p>
 <p style="margin-top:1.25rem;">This translation: the way a flat, two-dimensional piece of paper becomes a three-dimensional form that wraps a body, is one of the most relevant costume design principles for game character art. Understanding how patterns work informs how garments are sculpted, how fabric simulation is set up, and why certain silhouettes are structurally plausible while others are not.</p>
 <p style="margin-top:1.25rem;">A challenge extension invited students to slash and spread pattern pieces, experimenting with how editing a pattern changes garment volume and shape. This directly connects to how game artists might approach designing believable silhouettes: the same logic that governs how a pattern creates a flared skirt governs how an artist might want to set up a simulation or plan a sculpt.</p>`
     }
