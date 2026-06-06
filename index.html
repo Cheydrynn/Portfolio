@@ -7,7 +7,6 @@
 <meta name="description" content="Imara van der Wel is a researcher and educator working at the intersection of costume design and game character art education. Based in the Netherlands.">
 <meta name="keywords" content="Imara van der Wel, costume design, game character art, game art education, textile workshop, fashion design research, Marvelous Designer, BUas, Breda University, game art, character design education">
 <meta name="author" content="Imara van der Wel">
-<meta name="google-site-verification" content="riMfKRb-I133fkKPjvMffjaXAn-Xtw1xNBAmGynL788" />
 <link rel="canonical" href="https://cheydrynn.github.io/Portfolio/">
 
 <meta name="google-site-verification" content="riMfKRb-I133fkKPjvMffjaXAn-Xtw1xNBAmGynL788" />
@@ -680,7 +679,10 @@
     <div id="pub-pdf-view" style="display:none;">
       <button class="session-back" onclick="closePdf('pub')">&#8592; All publications</button>
       <div class="session-detail-title" id="pub-pdf-title" style="margin-bottom:0.25rem;"></div>
-      <div id="pub-pdf-meta" style="font-size:13px; color:var(--ink-light); margin-bottom:1.5rem; padding-bottom:1.5rem; border-bottom:1px solid var(--rule);"></div>
+      <div id="pub-pdf-meta" style="font-size:13px; color:var(--ink-light); margin-bottom:1rem; padding-bottom:1rem; border-bottom:1px solid var(--rule);"></div>
+      <a id="pub-download-btn" href="#" download style="display:none; margin-bottom:1.5rem;">
+        <button class="pdf-btn" style="background:var(--accent-green-bg); color:var(--accent-green); border-color:var(--accent-green-bg);">&#8595; Download thesis</button>
+      </a>
       <div class="pdf-viewer-wrap">
         <div class="pdf-controls">
           <button class="pdf-btn" id="pub-prev" onclick="changePage('pub', -1)">&#8592; Prev</button>
@@ -887,6 +889,13 @@
     document.getElementById('pub-pdf-view').style.display = 'block';
     document.getElementById('pub-pdf-title').textContent = title;
     document.getElementById('pub-pdf-meta').innerHTML = meta;
+    const dlBtn = document.getElementById('pub-download-btn');
+    if (url === 'pdfs/thesis.pdf') {
+      dlBtn.href = url;
+      dlBtn.style.display = 'inline-block';
+    } else {
+      dlBtn.style.display = 'none';
+    }
     await openPdf(url, title, 'pub');
   }
 
