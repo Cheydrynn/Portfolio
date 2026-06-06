@@ -250,7 +250,7 @@
     font-family: 'Libre Baskerville', serif;
     font-size: 28px;
     font-weight: 400;
-    margin-bottom: 2.5rem;
+    margin-bottom: 0;
     padding-bottom: 1.5rem;
     border-bottom: 1px solid var(--rule);
   }
@@ -322,7 +322,7 @@
     font-size: 11px;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--ink-light);
+    color: var(--ink);
     margin-bottom: 1rem;
   }
 
@@ -573,6 +573,15 @@
     <div class="feed-entry">
       <div class="feed-date">June 2026</div>
       <div class="feed-right">
+        <div class="feed-meta"><span class="badge badge-thesis">Thesis</span></div>
+        <div class="feed-title"><a href="javascript:void(0)" onclick="showPage('publications')">Costume Design Literacy for Game Character Art Students: A Workshop-Based Investigation</a></div>
+        <div class="feed-body">The thesis is complete. It investigates which costume design principles are relevant for game character art education, and how students engage with and apply those principles. The principles that mattered most were construction logic, material and historical context, fabric behaviour, and semiotic thinking. Students did not all translate those the same way. Riggers thought in deformation logic, concept artists in worldbuilding, character artists in construction and simulation workflows.</div>
+      </div>
+    </div>
+
+    <div class="feed-entry">
+      <div class="feed-date">June 2026</div>
+      <div class="feed-right">
         <div class="feed-meta"><span class="badge badge-publication">Publication</span></div>
         <div class="feed-title">Designing speculative materials for game characters</div>
         <div class="feed-body">My first article for 80.lv, built around the six-step material design framework that came out of the Guild sessions. It walks through how to approach material design for a character with no real-world reference point, using a cold-blooded reptilian researcher displaced into a cold wet climate as the working example. The framework covers everything from physical constraints to cultural logic to how the material actually behaves in simulation.</div>
@@ -580,11 +589,11 @@
     </div>
 
     <div class="feed-entry">
-      <div class="feed-date">June 2026</div>
+      <div class="feed-date">May 2026</div>
       <div class="feed-right">
-        <div class="feed-meta"><span class="badge badge-thesis">Thesis</span></div>
-        <div class="feed-title"><a href="javascript:void(0)" onclick="showPage('publications')">Costume Design Literacy for Game Character Art Students: A Workshop-Based Investigation</a></div>
-        <div class="feed-body">The thesis is complete. It investigates which costume design principles are relevant for game character art education, and how students engage with and apply those principles. The principles that mattered most were construction logic, material and historical context, fabric behaviour, and semiotic thinking. Students did not all translate those the same way. Riggers thought in deformation logic, concept artists in worldbuilding, character artists in construction and simulation workflows.</div>
+        <div class="feed-meta"><span class="badge badge-publication">Publication</span></div>
+        <div class="feed-title">ArtStation blogs: fabric properties and colour as worldbuilding</div>
+        <div class="feed-body">Two blog posts published on ArtStation expanding on practical knowledge that came out of the research. The first covers how physical fabric properties translate to digital simulation sliders in Marvelous Designer and CLO3D. The second looks at how colour palette functions as worldbuilding in game character design, arguing that colour choices are never just aesthetic decisions. Both are written for game art practitioners rather than academic readers.</div>
       </div>
     </div>
 
@@ -651,7 +660,7 @@
 
     <div id="pub-list-view">
       <h2 class="page-heading">Publications</h2>
-      <ul class="pub-list">
+      <ul class="pub-list" style="margin-top:0;">
 
         <li class="pub-item">
           <div class="pub-title"><a href="javascript:void(0)" onclick="openPubPdf('pdfs/thesis.pdf', 'Costume Design Literacy for Game Character Art Students: A Workshop-Based Investigation', 'Master\'s thesis &middot; Breda University of Applied Sciences &middot; 2026')">Costume Design Literacy for Game Character Art Students: A Workshop-Based Investigation</a></div>
@@ -660,7 +669,7 @@
 
         <li class="pub-item">
           <div class="pub-title">Designing speculative materials for game characters</div>
-          <div class="pub-meta">80.lv &middot; 2026 <span class="pub-status">Under submission</span></div>
+          <div class="pub-meta">80.lv &middot; 2026 &middot; <a href="https://80.lv/articles/learn-how-to-design-speculative-materials-for-game-characters" target="_blank" style="color:var(--ink-mid); font-size:13px;">Click here to read the article</a></div>
         </li>
 
         <li class="pub-item">
@@ -705,7 +714,7 @@
     <h2 class="page-heading">Theory sessions</h2>
 
     <div id="theory-grid">
-      <p style="font-size:14px; color: var(--ink-light); margin-bottom: 2.5rem;">Lecture sessions and presentation materials from the Costume Design Guild series and related research. Click any session to browse the slides.</p>
+      <p style="font-size:14px; color: var(--ink); margin-bottom: 2.5rem;">Lecture sessions and presentation materials from the Costume Design Guild series and related research. Click any session to browse the slides.</p>
 
       <div class="row-label">Additional theory</div>
       <div class="session-grid" style="margin-bottom: 2.5rem;">
@@ -808,7 +817,7 @@
 
     <div id="workshop-main">
 
-      <p style="font-size:14px; color: var(--ink-light); margin-bottom: 2rem;">A hands-on workshop exploring costume design principles through physical material engagement, designed for game art students. Click an activity to read how it works.</p>
+      <p style="font-size:14px; color: var(--ink); margin-bottom: 2rem;">A hands-on workshop exploring costume design principles through physical material engagement, designed for game art students. Click an activity to read how it works.</p>
 
       <div class="activity-buttons">
         <button class="activity-btn" onclick="showActivity('fabric')">
@@ -825,7 +834,7 @@
         </button>
       </div>
 
-      <div class="feed-label" style="margin-top: 0.5rem; margin-bottom: 1.5rem;">Deliveries</div>
+      <div class="feed-label" style="margin-top: 0.5rem; margin-bottom: 1.5rem; color: var(--ink);">Deliveries</div>
 
       <div class="workshop-item">
         <div class="workshop-title">Guest lectures at Saxion and Hanze</div>
@@ -866,7 +875,7 @@
       <p style="margin-bottom:1.5rem;"><a href="https://www.linkedin.com/in/imara-van-der-wel/" target="_blank" style="color:var(--ink); border-bottom:1px solid var(--rule); text-decoration:none; font-size:14px;">LinkedIn profile</a></p>
       <p>My research sits at the intersection of costume design and game character art education, an overlap that doesn't get much attention, which is part of why it's interesting.</p>
       <p>For my Master's thesis at Breda University of Applied Sciences, I investigated which costume design principles are relevant for game character art students and how they engage with that knowledge when they encounter it. I ran a series of online sessions on historical costume and material theory, followed by a hands-on textile workshop where students worked with fabric samples, mannequins and flat patterns. What came out of the data was not what I expected. Students didn't just absorb the material. They translated it through their own discipline, which generated new ideas and shifted how they thought about their existing work.</p>
-      <p>That research is now scaling. The workshop that started as a single session at BUas has since been delivered as a guest lecture at HKU and Saxion, and the underlying framework is finding its way into articles and presentations.</p>
+      <p>That research is now scaling. The workshop that started as a single session at BUas has since been delivered as a guest lecture at HKU, and the underlying framework is finding its way into articles and presentations.</p>
       <p>My background is in digital fashion design, with hands-on experience in CLO3D and Marvelous Designer, pattern cutting, and textile knowledge. I came to game art research through that technical foundation, and it shapes how I approach questions about construction, materiality, and what designers actually need to know.</p>
       <p>Based in Dordrecht, the Netherlands.</p>
     </div>
